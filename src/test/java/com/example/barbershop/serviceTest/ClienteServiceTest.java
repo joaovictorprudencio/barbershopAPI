@@ -2,17 +2,19 @@ package com.example.barbershop.serviceTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
-
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
 import com.example.barbershop.entitys.Cliente;
 import com.example.barbershop.repository.ClienteRepository;
 import com.example.barbershop.service.ClienteService;
+
+
 
 public class ClienteServiceTest {
      @Mock
@@ -40,6 +42,51 @@ public class ClienteServiceTest {
        Cliente clienteSalvo = clienteService.CriarCliente(NovoCliente);
        assertEquals("joao", clienteSalvo.getNome());
 	}
+
+    @Test
+    void BuscarCliente(){
+        Cliente NovoCliente = new Cliente();
+        NovoCliente.setId((long)1);
+        NovoCliente.setNome("joao");
+        NovoCliente.setNumeroCelular("85997330821");
+        NovoCliente.setSenha("138ndfwoncuehf");
+
+        when(clienteRepository.findByNome(anyString())).thenReturn(Optional.of(NovoCliente));
+        
+        Optional<Cliente> clienteTal = clienteService.BuscarCliente(NovoCliente);
+
+       Cliente  clienteEncontrado = clienteTal.get() ;
+
+        assertEquals("joao", clienteEncontrado.getNome());
+
+    }
+
+    @Test
+    void Atualizar(){
+
+        Cliente AntigoCliente = new Cliente();
+        AntigoCliente.setId((long)1);
+        AntigoCliente.setNome("joao");
+        AntigoCliente.setNumeroCelular("85997330821");
+        AntigoCliente.setSenha("138ndfwoncuehf");
+
+        Cliente NovoCliente = new Cliente();
+        NovoCliente.setId((long)2);
+        NovoCliente.setNome("joao victor alves prudencio");
+        NovoCliente.setNumeroCelular("859000-00");
+        NovoCliente.setSenha("root123");
+
+
+        when(clienteRepository.findByNome(anyString())).thenReturn(Optional.of(AntigoCliente));
+        when(clienteRepository.save(any(Cliente.class))).thenReturn(NovoCliente);
+       
+
+        Optional<Cliente> ClienteOptinal = clienteService.AtualizarCliente(NovoCliente);
+
+        Cliente clienteAtualizado = ClienteOptinal.get();
+
+        assertEquals("joao victor alves prudencio" , clienteAtualizado.getNome());
+    }
 
     
 
