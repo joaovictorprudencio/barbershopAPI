@@ -13,7 +13,7 @@ public class Barbeiro {
     private long id ;
     private String nome ;
     private String NumeroCelular ;
-    private  Horarios horario ;
+    private  Horarios horarios ;
 
 
 
@@ -41,12 +41,12 @@ public class Barbeiro {
         this.NumeroCelular = NumeroCelular;
     }
 
-    public Horarios getHorario() {
-        return this.horario;
+    public Horarios getHorarios() {
+        return this.horarios;
     }
 
-    public void setHorario(Horarios horario) {
-        this.horario = horario;
+    public void setHorario(Horarios horarios) {
+        this.horarios = horarios;
     }
 
 
