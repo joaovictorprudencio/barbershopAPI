@@ -47,5 +47,10 @@ public class Cliente {
         this.numeroCelular = numeroCelular;
     }
 
+    public Object thenReturn(Cliente novoCliente) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'thenReturn'");
+    }
+
 
 }
