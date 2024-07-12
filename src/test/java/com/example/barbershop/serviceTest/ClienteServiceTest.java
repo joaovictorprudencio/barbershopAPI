@@ -75,7 +75,7 @@ public class ClienteServiceTest {
         NovoCliente.setNumeroCelular("859000-00");
         NovoCliente.setSenha("root123");
 
-        when(clienteRepository.findByNome(anyString())).thenReturn(Optional.of(AntigoCliente));
+        when(clienteRepository.findByNome(anyString())).thenReturn(AntigoCliente);
         when(clienteRepository.save(any(Cliente.class))).thenReturn(NovoCliente);
 
         Optional<Cliente> ClienteOptinal = clienteService.AtualizarCliente(NovoCliente);

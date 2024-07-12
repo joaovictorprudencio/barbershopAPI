@@ -24,7 +24,13 @@ public class ClienteService {
   }
 
   public Optional<Cliente> BuscarCliente(Cliente cliente) {
-    return clienteRepository.findByNome(cliente.getNome());
+
+         Optional<Cliente> clienteExistente = clienteRepository.findByNome(cliente.getNome());
+
+        if(clienteExistente.isEmpty()){
+         throw new ClienteException("O usuario : " + cliente.getNome() + " não existe");
+        }
+       return clienteExistente;
   }
 
   public void DeletarCliente(Cliente cliente) {
@@ -35,19 +41,18 @@ public class ClienteService {
     clienteRepository.deleteById(ClienteExistente.getId());
   }
 
-  public Optional<Cliente> AtualizarCliente(Cliente cliente) {
+  public Cliente AtualizarCliente(Cliente cliente) {
     Optional<Cliente> clienteBusca = clienteRepository.findByNome(cliente.getNome());
 
-    if (clienteBusca.isPresent()) {
-      Cliente ClientePut = clienteBusca.get();
-      ClientePut.setNome(cliente.getNome());
-      ClientePut.setNumeroCelular(cliente.getNumeroCelular());
-      ClientePut.setSenha(cliente.getSenha());
-      clienteRepository.save(ClientePut);
-      return Optional.ofNullable(ClientePut);
-    } else {
-      return Optional.empty();
+    if (clienteBusca.isEmpty()) {
+      throw new ClienteException("O cliente : " + cliente.getNome() + " não existe");
     }
+
+    Cliente newCliente = clienteBusca.get();
+    newCliente.setNome(cliente.getNome());
+    newCliente.setSenha(cliente.getSenha());
+    newCliente.setNumeroCelular(cliente.getNumeroCelular());
+    return clienteRepository.save(newCliente);
   }
 
 }
