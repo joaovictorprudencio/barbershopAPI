@@ -47,4 +47,15 @@ public class BarbeiroService {
 
     }
 
+    public void DeletarBarbeiro(Barbeiro barbeiro) {
+        Optional<Barbeiro> barbeiroOptinal = barbeiroRepository.findByNome(barbeiro.getNome());
+
+        if (barbeiroOptinal.isEmpty()) {
+            throw new BarbeiroException("O usuario: " + barbeiro.getNome() + " ainda não é cadastrado no sistema");
+        }
+
+        barbeiroRepository.deleteById(barbeiro.getId());
+
+    }
+
 }
