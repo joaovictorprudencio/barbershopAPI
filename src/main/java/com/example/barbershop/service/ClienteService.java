@@ -15,7 +15,12 @@ public class ClienteService {
 
 
 
-public Cliente CriarCliente(Cliente cliente){
+    public Cliente CriarCliente(Cliente cliente){
+      Optional<Cliente> ClienteExistente = clienteRepository.findByNome(cliente.getNome());
+       
+      if(ClienteExistente.isPresent()){
+        throw new ClienteException("O nome de usuário já está em uso: " + cliente.getNome());
+      }
         return clienteRepository.save(cliente);
     }
 
@@ -25,7 +30,11 @@ public Cliente CriarCliente(Cliente cliente){
     }
 
    public void DeletarCliente(Cliente cliente ){
-        clienteRepository.deleteById(cliente.getId());
+        Optional<Cliente> clienteOptinal = clienteRepository.findByNome(cliente.getNome());
+
+        Cliente ClienteExistente = clienteOptinal.get();
+
+        clienteRepository.deleteById(ClienteExistente.getId());
    }
 
    public Optional<Cliente> AtualizarCliente (Cliente cliente){

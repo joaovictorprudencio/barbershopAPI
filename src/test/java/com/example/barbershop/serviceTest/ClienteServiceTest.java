@@ -3,6 +3,8 @@ package com.example.barbershop.serviceTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
@@ -88,7 +90,23 @@ public class ClienteServiceTest {
         assertEquals("joao victor alves prudencio" , clienteAtualizado.getNome());
     }
 
-    
+    @Test
+    void Deletar (){
+        Cliente NovoCliente = new Cliente();
+        NovoCliente.setId((long)2);
+        NovoCliente.setNome("joao victor alves prudencio");
+        NovoCliente.setNumeroCelular("859000-00");
+        NovoCliente.setSenha("root123");
 
+        when(clienteRepository.findByNome(anyString())).thenReturn(Optional.of(NovoCliente));
+
+         doNothing().when(clienteRepository).deleteById(NovoCliente.getId());
+
+         clienteService.DeletarCliente(NovoCliente);
+         
+
+         verify(clienteRepository).deleteById(NovoCliente.getId());
+
+    }
 
 }

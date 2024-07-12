@@ -1,8 +1,12 @@
 package com.example.barbershop.entitys;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Barbeiro {
@@ -12,10 +16,22 @@ public class Barbeiro {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private long id ;
     private String nome ;
+    private String senha;
     private String NumeroCelular ;
-    private  Horarios horarios ;
+    
+     @OneToMany(mappedBy = "barbeiro", cascade = CascadeType.ALL)
+    private  List<Horarios> horarios ;
 
 
+
+    public String getSenha() {
+        return this.senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+   
 
     public long getId() {
         return this.id;
@@ -41,13 +57,15 @@ public class Barbeiro {
         this.NumeroCelular = NumeroCelular;
     }
 
-    public Horarios getHorarios() {
+
+    public List<Horarios> getHorarios() {
         return this.horarios;
     }
 
-    public void setHorario(Horarios horarios) {
+    public void setHorarios(List<Horarios> horarios) {
         this.horarios = horarios;
     }
+  
 
 
 }
