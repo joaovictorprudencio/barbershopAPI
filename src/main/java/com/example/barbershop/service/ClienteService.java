@@ -36,6 +36,10 @@ public class ClienteService {
   public void DeletarCliente(Cliente cliente) {
     Optional<Cliente> clienteOptinal = clienteRepository.findByNome(cliente.getNome());
 
+    if(clienteOptinal.isEmpty()){
+      throw new ClienteException("O usuario : " + cliente.getNome() + " não existe");
+    }
+
     Cliente ClienteExistente = clienteOptinal.get();
 
     clienteRepository.deleteById(ClienteExistente.getId());
