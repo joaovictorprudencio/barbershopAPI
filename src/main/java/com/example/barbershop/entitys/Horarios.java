@@ -1,5 +1,6 @@
 package com.example.barbershop.entitys;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,10 +23,10 @@ public class Horarios {
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
 
-    private LocalDateTime data;
+    private LocalDate data;
     private LocalDateTime horarioinicil;
     private LocalDateTime horariofim;
-    private String status;
+    private String status = "Disponivel";
 
 
 
@@ -53,11 +54,11 @@ public class Horarios {
         this.cliente = cliente;
     }
 
-    public LocalDateTime getData() {
+    public LocalDate getData() {
         return this.data;
     }
 
-    public void setData(LocalDateTime data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
