@@ -53,7 +53,6 @@ public class BarbeiroService {
         if (barbeiroOptinal.isEmpty()) {
             throw new BarbeiroException("O usuario: " + barbeiro.getNome() + " ainda não é cadastrado no sistema");
         }
-
         barbeiroRepository.deleteById(barbeiro.getId());
 
     }

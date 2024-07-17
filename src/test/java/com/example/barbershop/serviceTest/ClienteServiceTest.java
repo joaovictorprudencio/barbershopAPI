@@ -1,9 +1,11 @@
 package com.example.barbershop.serviceTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import java.util.Optional;
@@ -33,16 +35,23 @@ public class ClienteServiceTest {
 
     @Test
     void CriarCliente(){
+
+        
     Cliente NovoCliente = new Cliente();
 	  NovoCliente.setId((long)1);
 	  NovoCliente.setNome("joao");
 	  NovoCliente.setNumeroCelular("85997330821");
 	  NovoCliente.setSenha("138ndfwoncuehf");
 
-	 when(clienteRepository.save(any(Cliente.class))).thenReturn(NovoCliente);
+     when(clienteRepository.findByNome("joao")).thenReturn(Optional.empty());
+
+	 when(clienteRepository.save(NovoCliente)).thenReturn(NovoCliente);
 
        Cliente clienteSalvo = clienteService.CriarCliente(NovoCliente);
+       assertNotNull(clienteSalvo);
        assertEquals("joao", clienteSalvo.getNome());
+       verify(clienteRepository, times(1)).findByNome("joao");
+       verify(clienteRepository, times(1)).save(clienteSalvo);
 	}
 
     @Test
