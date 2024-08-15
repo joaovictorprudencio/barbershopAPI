@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.example.barbershop.Exception.BarbeiroException;
@@ -68,15 +70,35 @@ public class HorarioService {
     return SalvandoHorario;
   }
 
+
+
+  @Scheduled(cron = "0 0 0 * * *")
+  public void gerarHorariosDiarios(){
+
+     List<Barbeiro> barbeiros = barbeiroRepository.findAll(); 
+
+    for(Barbeiro barbeiro : barbeiros){
+      gerarHorarios(barbeiro, LocalDate.now(), LocalTime.of(9,0), LocalTime.of(12, 0));
+      gerarHorarios(barbeiro, LocalDate.now(), LocalTime.of(14, 0), LocalTime.of(20,30));
+    }
+  }
+
+
+
    private List<Horarios> horariosDoDia = new ArrayList<>(); 
 
-   public List<Horarios> horariosDoDia(){
-       return  horariosDoDia;
-   }
+  
 
-  @SuppressWarnings("unused")
-  private void gerarHorarios(Barbeiro barbeiro , LocalDate data , LocalTime inicil, LocalTime fim) {
+  private void gerarHorarios( Barbeiro barbeiro ,LocalDate data , LocalTime inicil, LocalTime fim) {
+    Optional<Barbeiro> barbeiroOptinal = barbeiroRepository.findByNome(barbeiro.getNome());
     LocalTime Ohorario = inicil;
+    horariosDoDia.clear();
+
+
+    if (!barbeiroOptinal.isPresent()) {
+      throw new BarbeiroException("O nome de usuário não existe " + barbeiro.getNome());
+    }
+
 
     while(Ohorario.isBefore(fim)){
       Horarios novoHorario = new Horarios();
@@ -86,8 +108,24 @@ public class HorarioService {
        novoHorario.setHorario(Ohorario);
        novoHorario.setStatus("Disponível");
        horariosDoDia.add(novoHorario);
+      
+       Ohorario = Ohorario.plusMinutes(30);
+
+       
     }
+
+    try {
+      horarioRepository.saveAll(horariosDoDia);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+  
 }
+
+
+
+
 
 
 
