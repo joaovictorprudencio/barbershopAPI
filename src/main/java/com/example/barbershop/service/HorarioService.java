@@ -3,6 +3,7 @@ package com.example.barbershop.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,6 +49,7 @@ public class HorarioService {
     }
 
     LocalTime agora = LocalTime.now();
+    
     if (agora.isBefore(horario)) {
       throw new HorarioException("O horario:" + horario + " é invalido");
     }
@@ -61,10 +63,41 @@ public class HorarioService {
     marcandoHorario.setData(dataDoCorte);
     marcandoHorario.setHorario(horario);
     marcandoHorario.setStatus("indisponivel");
-
     Horarios SalvandoHorario = horarioRepository.save(marcandoHorario);
 
     return SalvandoHorario;
   }
+
+   private List<Horarios> horariosDoDia = new ArrayList<>(); 
+
+   public List<Horarios> horariosDoDia(){
+       return  horariosDoDia;
+   }
+
+  @SuppressWarnings("unused")
+  private void gerarHorarios(Barbeiro barbeiro , LocalDate data , LocalTime inicil, LocalTime fim) {
+    LocalTime Ohorario = inicil;
+
+    while(Ohorario.isBefore(fim)){
+      Horarios novoHorario = new Horarios();
+       novoHorario.setBarbeiro(barbeiro);
+       novoHorario.setCliente(null);
+       novoHorario.setData(data);
+       novoHorario.setHorario(Ohorario);
+       novoHorario.setStatus("Disponível");
+       horariosDoDia.add(novoHorario);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
 
 }

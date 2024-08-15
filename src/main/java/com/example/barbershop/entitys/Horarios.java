@@ -30,6 +30,10 @@ public class Horarios {
 
     private String status = "Disponivel";
 
+   private LocalDate hoje = LocalDate.now(); 
+
+  
+
 
 
     public Long getId() {

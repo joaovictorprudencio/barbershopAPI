@@ -10,8 +10,5 @@ import jakarta.persistence.PersistenceContext;
 
 public interface HorariosRepository extends JpaRepository<Horarios, Long> {
 
- 
 
-
-    
 }
