@@ -2,6 +2,8 @@ package com.example.barbershop.entitys;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,8 +26,8 @@ public class Horarios {
     private Cliente cliente;
 
     private LocalDate data;
-    private LocalDateTime horarioinicil;
-    private LocalDateTime horariofim;
+    private LocalTime horario;
+
     private String status = "Disponivel";
 
 
@@ -62,20 +64,12 @@ public class Horarios {
         this.data = data;
     }
 
-    public LocalDateTime getHorarioinicil() {
-        return this.horarioinicil;
+    public LocalTime getHorario() {
+        return this.horario;
     }
 
-    public void setHorarioinicil(LocalDateTime horarioinicil) {
-        this.horarioinicil = horarioinicil;
-    }
-
-    public LocalDateTime getHorariofim() {
-        return this.horariofim;
-    }
-
-    public void setHorariofim(LocalDateTime horariofim) {
-        this.horariofim = horariofim;
+    public void setHorario(LocalTime horario) {
+        this.horario = horario;
     }
 
     public String getStatus() {
