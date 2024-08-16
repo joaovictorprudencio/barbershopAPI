@@ -92,22 +92,21 @@ public class HorarioService {
     }
 
     while (Ohorario.isBefore(fim)) {
-      Horarios novoHorario = new Horarios();
-      novoHorario.setBarbeiro(barbeiro);
-      novoHorario.setCliente(null);
-      novoHorario.setData(data);
-      novoHorario.setHorario(Ohorario);
-      novoHorario.setStatus("Disponível");
-      horariosDoDia.add(novoHorario);
+      boolean horarioExistente = horarioRepository.countByDataAndHorarioAndBarbeiro(data, Ohorario, barbeiro) > 0;
 
+      if (horarioExistente) {
+
+        Horarios novoHorario = new Horarios();
+        novoHorario.setBarbeiro(barbeiro);
+        novoHorario.setCliente(null);
+        novoHorario.setData(data);
+        novoHorario.setHorario(Ohorario);
+        novoHorario.setStatus("Disponível");
+
+        horariosDoDia.add(novoHorario);
+        horarioRepository.save(novoHorario);
+      }
       Ohorario = Ohorario.plusMinutes(30);
-
-    }
-
-    try {
-      horarioRepository.saveAll(horariosDoDia);
-    } catch (Exception e) {
-      e.printStackTrace();
     }
 
   }
@@ -122,7 +121,7 @@ public class HorarioService {
       }
     }
 
-    return disponiveis;
+    return disponiveis; 
   }
 
 }
