@@ -1,14 +1,13 @@
 package com.example.barbershop.service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
+
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -51,7 +50,7 @@ public class HorarioService {
     }
 
     LocalTime agora = LocalTime.now();
-    
+
     if (agora.isBefore(horario)) {
       throw new HorarioException("O horario:" + horario + " é invalido");
     }
@@ -70,48 +69,39 @@ public class HorarioService {
     return SalvandoHorario;
   }
 
-
-
   @Scheduled(cron = "0 0 0 * * *")
-  public void gerarHorariosDiarios(){
+  public void gerarHorariosDiarios() {
 
-     List<Barbeiro> barbeiros = barbeiroRepository.findAll(); 
+    List<Barbeiro> barbeiros = barbeiroRepository.findAll();
 
-    for(Barbeiro barbeiro : barbeiros){
-      gerarHorarios(barbeiro, LocalDate.now(), LocalTime.of(9,0), LocalTime.of(12, 0));
-      gerarHorarios(barbeiro, LocalDate.now(), LocalTime.of(14, 0), LocalTime.of(20,30));
+    for (Barbeiro barbeiro : barbeiros) {
+      gerarHorarios(barbeiro, LocalDate.now(), LocalTime.of(9, 0), LocalTime.of(12, 0));
+      gerarHorarios(barbeiro, LocalDate.now(), LocalTime.of(14, 0), LocalTime.of(20, 30));
     }
   }
 
+  private List<Horarios> horariosDoDia = new ArrayList<>();
 
-
-   private List<Horarios> horariosDoDia = new ArrayList<>(); 
-
-  
-
-  private void gerarHorarios( Barbeiro barbeiro ,LocalDate data , LocalTime inicil, LocalTime fim) {
+  private void gerarHorarios(Barbeiro barbeiro, LocalDate data, LocalTime inicil, LocalTime fim) {
     Optional<Barbeiro> barbeiroOptinal = barbeiroRepository.findByNome(barbeiro.getNome());
     LocalTime Ohorario = inicil;
     horariosDoDia.clear();
-
 
     if (!barbeiroOptinal.isPresent()) {
       throw new BarbeiroException("O nome de usuário não existe " + barbeiro.getNome());
     }
 
-
-    while(Ohorario.isBefore(fim)){
+    while (Ohorario.isBefore(fim)) {
       Horarios novoHorario = new Horarios();
-       novoHorario.setBarbeiro(barbeiro);
-       novoHorario.setCliente(null);
-       novoHorario.setData(data);
-       novoHorario.setHorario(Ohorario);
-       novoHorario.setStatus("Disponível");
-       horariosDoDia.add(novoHorario);
-      
-       Ohorario = Ohorario.plusMinutes(30);
+      novoHorario.setBarbeiro(barbeiro);
+      novoHorario.setCliente(null);
+      novoHorario.setData(data);
+      novoHorario.setHorario(Ohorario);
+      novoHorario.setStatus("Disponível");
+      horariosDoDia.add(novoHorario);
 
-       
+      Ohorario = Ohorario.plusMinutes(30);
+
     }
 
     try {
@@ -120,22 +110,19 @@ public class HorarioService {
       e.printStackTrace();
     }
 
-  
-}
+  }
 
+  public List<Horarios> horariosDisponiveisDia() {
+    List<Horarios> disponiveis = new ArrayList<>();
 
+    for (Horarios horario : horariosDoDia) {
 
+      if (horario.getStatus() == "Disponivel") {
+        disponiveis.add(horario);
+      }
+    }
 
-
-
-
-
-
-
-
-
-
-
-
+    return disponiveis;
+  }
 
 }
