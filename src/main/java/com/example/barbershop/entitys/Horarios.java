@@ -1,7 +1,7 @@
 package com.example.barbershop.entitys;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.time.LocalTime;
 
 import jakarta.persistence.Entity;
@@ -30,7 +30,7 @@ public class Horarios {
 
     private String status = "Disponivel";
 
-   private LocalDate hoje = LocalDate.now(); 
+  
 
   
 
