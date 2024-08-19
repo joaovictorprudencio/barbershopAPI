@@ -17,6 +17,15 @@ public class Barbeiro {
     private long id ;
     private String nome ;
     private String senha;
+    private String email;
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     private String NumeroCelular ;
     
      @OneToMany(mappedBy = "barbeiro", cascade = CascadeType.ALL)

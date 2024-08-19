@@ -23,7 +23,7 @@ public String generateToken(Barbeiro barbeiro){
         Algorithm  algorithm = Algorithm.HMAC256(secret);
         String token = JWT.create()
               .withIssuer("login-auth-api")
-              .withSubject(barbeiro.getNumeroCelular())
+              .withSubject(barbeiro.getEmail())
               .withExpiresAt(this.generateExpirationDate())
               .sign(algorithm);
               return token;

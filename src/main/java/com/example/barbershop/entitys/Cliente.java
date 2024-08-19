@@ -12,8 +12,17 @@ public class Cliente {
 
     private String nome;
     private String senha;
+    private String email;
     private String numeroCelular;
 
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public long getId() {
         return this.id;
