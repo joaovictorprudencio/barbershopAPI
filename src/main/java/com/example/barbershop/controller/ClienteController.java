@@ -18,7 +18,7 @@ public class ClienteController {
     ClienteService clienteService;
 
     @PostMapping("/cadastro")
-    public ResponseEntity<Cliente> cadastro(@RequestBody Cliente cliente){
+    public ResponseEntity<Cliente> cada(@RequestBody Cliente cliente){
          Cliente NovoCliente = clienteService.CriarCliente(cliente);
          return ResponseEntity.ok(NovoCliente);
     }
