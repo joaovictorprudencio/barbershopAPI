@@ -56,7 +56,6 @@ public class ClienteService {
     newCliente.setNome(cliente.getNome());
     newCliente.setEmail(cliente.getEmail());
     newCliente.setSenha(cliente.getSenha());
-    newCliente.setNumeroCelular(cliente.getNumeroCelular());
     return clienteRepository.save(newCliente);
   }
 

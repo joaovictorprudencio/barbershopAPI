@@ -13,7 +13,7 @@ public class Cliente {
     private String nome;
     private String senha;
     private String email;
-    private String numeroCelular;
+
 
 
     public String getEmail() {
@@ -48,13 +48,9 @@ public class Cliente {
         this.senha = senha;
     }
 
-    public String getNumeroCelular() {
-        return this.numeroCelular;
-    }
+ 
 
-    public void setNumeroCelular(String numeroCelular) {
-        this.numeroCelular = numeroCelular;
-    }
+  
 
   
 
