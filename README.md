@@ -37,7 +37,7 @@ Bem-vindo à documentação da **API de Gestão de Barbearia**. Esta API foi des
 1. Clone o repositório:  
    ```bash
    git clone https://github.com/seu-usuario/api-gestao-barbearia.git
- ´´´bash
+ ´´´
 
 
    2. Configure o arquivo `application.properties` ou `application.yml`:
@@ -54,7 +54,7 @@ Bem-vindo à documentação da **API de Gestão de Barbearia**. Esta API foi des
  spring.data.mongodb.uri=mongodb+srv://SEU_USUARIO:SUA_SENHA@cluster.mongodb.net/barbearia_prod
  spring.data.mongodb.database=barbearia
 ```
-** Para iniciar o projeto**:
+**Para iniciar o projeto**:
  ```
 mvn spring-boot:run
  ```
