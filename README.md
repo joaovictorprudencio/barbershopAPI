@@ -36,7 +36,7 @@ Bem-vindo à documentação da **API de Gestão de Barbearia**. Esta API foi des
 1. Clone o repositório:  
    ```bash
    git clone https://github.com/seu-usuario/api-gestao-barbearia.git
- ´´´
+
 
 
   2. Configure o arquivo `application.properties` ou `application.yml`:
