@@ -39,15 +39,9 @@ Bem-vindo à documentação da **API de Gestão de Barbearia**. Esta API foi des
  ´´´
 
 
-   2. Configure o arquivo `application.properties` ou `application.yml`:
+  2. Configure o arquivo `application.properties` ou `application.yml`:
 
-   **Para testes com MySQL**:
-   ```properties
-   spring.datasource.url=jdbc:mysql://localhost:3306/barbearia_test
-   spring.datasource.username=SEU_USUARIO
-   spring.datasource.password=SUA_SENHA
-   spring.jpa.hibernate.ddl-auto=update 
-```
+  
  **Para Conexão com MongoDB**:
  ```
  spring.data.mongodb.uri=mongodb+srv://SEU_USUARIO:SUA_SENHA@cluster.mongodb.net/barbearia_prod
