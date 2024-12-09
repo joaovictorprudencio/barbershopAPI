@@ -26,7 +26,6 @@ Bem-vindo à documentação da **API de Gestão de Barbearia**. Esta API foi des
 - **Java** 20
 - **Maven** 3.8+
 - **Spring Boot** 3.x
-- **MySQL** 8.0+ (para teste)
 - **MongoDB** 6.x (para produção)
 - IDE recomendada: IntelliJ IDEA ou Eclipse
 
@@ -49,7 +48,7 @@ Bem-vindo à documentação da **API de Gestão de Barbearia**. Esta API foi des
    spring.datasource.password=SUA_SENHA
    spring.jpa.hibernate.ddl-auto=update 
 ```
- **Para testes com MySQL**:
+ **Para Conexão com MongoDB**:
  ```
  spring.data.mongodb.uri=mongodb+srv://SEU_USUARIO:SUA_SENHA@cluster.mongodb.net/barbearia_prod
  spring.data.mongodb.database=barbearia
