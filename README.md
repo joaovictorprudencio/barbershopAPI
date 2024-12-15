@@ -23,7 +23,7 @@ Bem-vindo à documentação da **API de Gestão de Barbearia**. Esta API foi des
 
 ## 📦 **Requisitos**
 
-- **Java** 20
+- **Java** 21
 - **Maven** 3.8+
 - **Spring Boot** 3.x
 - **MongoDB** 6.x (para produção)
