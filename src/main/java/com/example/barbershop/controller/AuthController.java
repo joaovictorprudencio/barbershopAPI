@@ -40,10 +40,10 @@ public class AuthController {
       return ResponseEntity.badRequest().build();
     }
 
-    @PostMapping("/registre")
+    @PostMapping("/register")
     public ResponseEntity cadastro(@RequestBody RegisterRequestDTO body){
         Optional<Barbeiro> usuario = this.barbeiroRepository.findByEmail(body.email());
-        if(usuario.isEmpty()){
+
           Barbeiro barbeiro = new Barbeiro();
            barbeiro.setSenha(passwordEncoder.encode(body.senha()));
            barbeiro.setEmail(body.email());
@@ -52,8 +52,6 @@ public class AuthController {
 
           String token = this.tokenService.generateToken(barbeiro);
           return ResponseEntity.ok(new ResponseDTO(barbeiro.getNome(), token));
-        }
-        return ResponseEntity.badRequest().build();
 
       }
    

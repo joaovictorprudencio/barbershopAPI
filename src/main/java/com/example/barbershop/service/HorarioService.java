@@ -32,16 +32,9 @@ public class HorarioService {
   @Autowired
   ClienteRepository clienteRepository;
 
-  public Horarios MarcarHorario(Barbeiro barbeiro, LocalDate dataDoCorte, LocalTime horario, Cliente cliente) {
-    Optional<Barbeiro> barbeiroOptinal = barbeiroRepository.findByNome(barbeiro.getNome());
-    Optional<Cliente> clienteOptinal = clienteRepository.findByNome(cliente.getNome());
-    if (!barbeiroOptinal.isPresent()) {
-      throw new BarbeiroException("O nome de usuário não existe " + barbeiro.getNome());
-    }
+  public Horarios MarcarHorario(LocalDate dataDoCorte, LocalTime horario,String nome , String telefone) {
 
-    if (!clienteOptinal.isPresent()) {
-      throw new ClienteException("O nome de usuário já está em uso: " + cliente.getNome());
-    }
+
 
     LocalDate hoje = LocalDate.now();
 
@@ -55,12 +48,11 @@ public class HorarioService {
       throw new HorarioException("O horario:" + horario + " é invalido");
     }
 
-    Barbeiro barbeiroExistente = barbeiroOptinal.get();
-    Cliente clienteExistente = clienteOptinal.get();
+
+    Cliente cliente = new Cliente(nome,telefone);
 
     Horarios marcandoHorario = new Horarios();
-    marcandoHorario.setBarbeiro(barbeiroExistente);
-    marcandoHorario.setCliente(clienteExistente);
+    marcandoHorario.setCliente(cliente);
     marcandoHorario.setData(dataDoCorte);
     marcandoHorario.setHorario(horario);
     marcandoHorario.setStatus("indisponivel");

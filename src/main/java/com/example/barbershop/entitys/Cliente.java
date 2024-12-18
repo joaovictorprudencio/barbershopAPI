@@ -12,9 +12,13 @@ public class Cliente {
 
     private String nome;
     private String senha;
+    private String telefone;
     private String email;
 
-
+    public Cliente(String nome, String telefone) {
+        this.nome = nome;
+        this.telefone = telefone;
+    }
 
     public String getEmail() {
         return this.email;
@@ -48,11 +52,11 @@ public class Cliente {
         this.senha = senha;
     }
 
- 
+    public String getTelefone() {
+        return telefone;
+    }
 
-  
-
-  
-
-
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
 }
