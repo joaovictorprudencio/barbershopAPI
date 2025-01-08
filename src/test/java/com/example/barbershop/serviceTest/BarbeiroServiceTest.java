@@ -1,7 +1,6 @@
 package com.example.barbershop.serviceTest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -40,6 +39,7 @@ public class BarbeiroServiceTest {
        barbeiro.setNome("maikon");
        barbeiro.setNumeroCelular("85998542232");
 
+
        when(barbeiroRepository.findByNome("maikon")).thenReturn(Optional.empty());
 
        when(barbeiroRepository.save(barbeiro)).thenReturn(barbeiro);
@@ -51,6 +51,25 @@ public class BarbeiroServiceTest {
        verify(barbeiroRepository, times(1)).findByNome("maikon");
        verify(barbeiroRepository, times(1)).save(NovoBarbeiro);
 
+    }
+
+
+    @Test
+   void BuscarBarbeiro(){
+       Barbeiro instancia = new Barbeiro();
+       instancia.setId((long)1);
+       instancia.setNome("maikon");
+       instancia.setNumeroCelular("85998542232");
+
+
+       when(barbeiroRepository.findByNome("maikon")).thenReturn(Optional.of(instancia));
+       Optional<Barbeiro> barbeiroOptional = barbeiroService.BuscarBarbeiro(instancia);
+
+
+       assertTrue(barbeiroOptional.isPresent());
+       Barbeiro barbeiro = barbeiroOptional.get();
+       assertEquals("maikon", barbeiro.getNome());
+       assertEquals("85998542232", barbeiro.getNumeroCelular());
     }
 
 

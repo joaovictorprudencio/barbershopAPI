@@ -20,6 +20,9 @@ public class Cliente {
         this.telefone = telefone;
     }
 
+    public Cliente() {
+    }
+
     public String getEmail() {
         return this.email;
     }

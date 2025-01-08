@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,33 +33,38 @@ public class HorarioService {
   @Autowired
   ClienteRepository clienteRepository;
 
+
+  @Autowired
+  ClienteService clienteService;
+
   public Horarios MarcarHorario(LocalDate dataDoCorte, LocalTime horario,String nome , String telefone) {
-
-
-
     LocalDate hoje = LocalDate.now();
-
-    if (hoje.isBefore(dataDoCorte)) {
-      throw new HorarioException(" a data " + dataDoCorte + " está invalida");
-    }
-
     LocalTime agora = LocalTime.now();
 
-    if (agora.isBefore(horario)) {
-      throw new HorarioException("O horario:" + horario + " é invalido");
-    }
+    Optional<Barbeiro> barbeiroOptional = barbeiroRepository.findByNome("joão victor");
+
+      if (hoje.isAfter(dataDoCorte)) {
+          throw new HorarioException("A data " + dataDoCorte + " está inválida");
+      }
 
 
-    Cliente cliente = new Cliente(nome,telefone);
+     Cliente cliente  = clienteService.CriarCliente(
+             new Cliente(nome,telefone)
+     );
+
+
+    Barbeiro barbeiro = barbeiroOptional.get();
+
 
     Horarios marcandoHorario = new Horarios();
     marcandoHorario.setCliente(cliente);
     marcandoHorario.setData(dataDoCorte);
     marcandoHorario.setHorario(horario);
+    marcandoHorario.setBarbeiro(barbeiro);
     marcandoHorario.setStatus("indisponivel");
-    Horarios SalvandoHorario = horarioRepository.save(marcandoHorario);
 
-    return SalvandoHorario;
+    return horarioRepository.save(marcandoHorario);
+
   }
 
   @Scheduled(cron = "0 0 0 * * *")
@@ -75,7 +81,7 @@ public class HorarioService {
   private List<Horarios> horariosDoDia = new ArrayList<>();
 
   private void gerarHorarios(Barbeiro barbeiro, LocalDate data, LocalTime inicil, LocalTime fim) {
-    Optional<Barbeiro> barbeiroOptinal = barbeiroRepository.findByNome(barbeiro.getNome());
+    Optional<Barbeiro> barbeiroOptinal = barbeiroRepository.findByNome("joão victor");
     LocalTime Ohorario = inicil;
     horariosDoDia.clear();
 
@@ -106,14 +112,34 @@ public class HorarioService {
   public List<Horarios> horariosDisponiveisDia() {
     List<Horarios> disponiveis = new ArrayList<>();
 
-    for (Horarios horario : horariosDoDia) {
+      LocalDate dia =  LocalDate.now();
 
-      if (horario.getStatus() == "Disponivel") {
+    List< Horarios> horarios = horarioRepository.findAll();
+
+    for (Horarios horario : horarios) {
+
+      if (Objects.equals(horario.getStatus(), "Disponivel") && horario.getData() == dia) {
         disponiveis.add(horario);
       }
     }
 
-    return disponiveis; 
+    return disponiveis;
+  }
+
+
+  public List<Horarios> horariosDeServicoDoDia(){
+      List< Horarios> horarios = horarioRepository.findAll();
+      List<Horarios> horariosMarcadosHoje = new ArrayList<Horarios>();
+
+      LocalDate dia =  LocalDate.now();
+
+      for (Horarios horario : horarios ){
+          if(horario.getData() == dia){
+              horariosMarcadosHoje.add(horario);
+          }
+      }
+
+      return horariosMarcadosHoje;
   }
 
 }

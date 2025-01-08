@@ -30,7 +30,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         var login = tokenService.validateToken(token);
 
         if(login != null){
-            Barbeiro user = barbeiroRepository.findByEmail(login).orElseThrow(() -> new RuntimeException("barbeiro Not Found"));
+            Barbeiro user = barbeiroRepository.findByNome(login).orElseThrow(() -> new RuntimeException("barbeiro Not Found"));
             var authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_BARBEIRO"));
             var authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
             SecurityContextHolder.getContext().setAuthentication(authentication);
