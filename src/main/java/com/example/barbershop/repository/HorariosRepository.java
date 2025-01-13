@@ -24,4 +24,4 @@ public interface HorariosRepository extends JpaRepository<Horarios, Long> {
     List<Horarios> findByStatus();
 
 
-}
+ }

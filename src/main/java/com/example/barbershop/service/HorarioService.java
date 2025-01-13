@@ -127,7 +127,7 @@ public class HorarioService {
       List<Horarios> horariosMarcadosHoje = horarioRepository.findByData(hoje);
 
       if(!horariosDoDia.isEmpty()){
-        throw new HorarioException("não a cortes para hoje:" + hoje);
+        throw new HorarioException("não a cortes para hoje: " + hoje);
       }
 
       return horariosMarcadosHoje;
