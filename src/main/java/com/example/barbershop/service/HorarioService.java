@@ -112,31 +112,22 @@ public class HorarioService {
   public List<Horarios> horariosDisponiveisDia() {
     List<Horarios> disponiveis = new ArrayList<>();
 
-      LocalDate dia =  LocalDate.now();
+    LocalDate dia =  LocalDate.now();
 
-    List< Horarios> horarios = horarioRepository.findAll();
+    List< Horarios> horariosDisponiveis = horarioRepository.findByStatus();
 
-    for (Horarios horario : horarios) {
-
-      if (Objects.equals(horario.getStatus(), "Disponivel") && horario.getData() == dia) {
-        disponiveis.add(horario);
-      }
-    }
-
-    return disponiveis;
+    return horariosDisponiveis;
   }
 
 
   public List<Horarios> horariosDeServicoDoDia(){
-      List< Horarios> horarios = horarioRepository.findAll();
-      List<Horarios> horariosMarcadosHoje = new ArrayList<Horarios>();
 
-      LocalDate dia =  LocalDate.now();
+     LocalDate hoje = LocalDate.now();
 
-      for (Horarios horario : horarios ){
-          if(horario.getData() == dia){
-              horariosMarcadosHoje.add(horario);
-          }
+      List<Horarios> horariosMarcadosHoje = horarioRepository.findByData(hoje);
+
+      if(!horariosDoDia.isEmpty()){
+        throw new HorarioException("não a cortes para hoje:" + hoje);
       }
 
       return horariosMarcadosHoje;

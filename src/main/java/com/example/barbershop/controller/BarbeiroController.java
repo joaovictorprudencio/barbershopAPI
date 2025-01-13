@@ -35,7 +35,7 @@ public class BarbeiroController {
 
 
     @GetMapping("/disponiveis")
-    public ResponseEntity<List<Horarios>> HorariosDisponiveis( @RequestBody String nome){
+    public ResponseEntity<List<Horarios>> HorariosDisponiveis(){
 
         List<Horarios> horariosDisponiveis = horarioService.horariosDisponiveisDia();
 
