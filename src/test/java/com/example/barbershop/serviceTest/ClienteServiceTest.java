@@ -40,7 +40,7 @@ public class ClienteServiceTest {
     Cliente NovoCliente = new Cliente();
 	  NovoCliente.setId((long)1);
 	  NovoCliente.setNome("joao");
-	  NovoCliente.setNumeroCelular("85997330821");
+	  NovoCliente.setTelefone("85997330821");
 	  NovoCliente.setSenha("138ndfwoncuehf");
 
      when(clienteRepository.findByNome("joao")).thenReturn(Optional.empty());
@@ -55,11 +55,12 @@ public class ClienteServiceTest {
 	}
 
     @Test
-    void BuscarCliente(){
+    void
+    BuscarCliente(){
         Cliente NovoCliente = new Cliente();
         NovoCliente.setId((long)1);
         NovoCliente.setNome("joao");
-        NovoCliente.setNumeroCelular("85997330821");
+        NovoCliente.setTelefone("85997330821");
         NovoCliente.setSenha("138ndfwoncuehf");
 
         when(clienteRepository.findByNome(anyString())).thenReturn(Optional.of(NovoCliente));
@@ -78,13 +79,13 @@ public class ClienteServiceTest {
         Cliente AntigoCliente = new Cliente();
         AntigoCliente.setId((long)1);
         AntigoCliente.setNome("joao");
-        AntigoCliente.setNumeroCelular("85997330821");
+        AntigoCliente.setTelefone("85997330821");
         AntigoCliente.setSenha("138ndfwoncuehf");
 
         Cliente NovoCliente = new Cliente();
         NovoCliente.setId((long)2);
         NovoCliente.setNome("joao victor alves prudencio");
-        NovoCliente.setNumeroCelular("859000-00");
+        NovoCliente.setTelefone("859000-00");
         NovoCliente.setSenha("root123");
 
 
@@ -104,7 +105,7 @@ public class ClienteServiceTest {
         Cliente NovoCliente = new Cliente();
         NovoCliente.setId((long)2);
         NovoCliente.setNome("joao victor alves prudencio");
-        NovoCliente.setNumeroCelular("859000-00");
+        NovoCliente.setTelefone("859000-00");
         NovoCliente.setSenha("root123");
 
         when(clienteRepository.findByNome(anyString())).thenReturn(Optional.of(NovoCliente));

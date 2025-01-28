@@ -1,6 +1,7 @@
 package com.example.barbershop.entitys;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,9 +18,19 @@ public class Barbeiro {
     private long id ;
     private String nome ;
     private String senha;
+    private String email;
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     private String NumeroCelular ;
     
      @OneToMany(mappedBy = "barbeiro", cascade = CascadeType.ALL)
+     @JsonManagedReference
     private  List<Horarios> horarios ;
 
 

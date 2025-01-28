@@ -7,5 +7,7 @@ import com.example.barbershop.entitys.Barbeiro;
 public interface BarbeiroRepository extends JpaRepository<Barbeiro, Long> {
 
     Optional<Barbeiro> findByNome(String nome);
+
+    Optional<Barbeiro> findByEmail(String login);
     
 }

@@ -31,6 +31,18 @@ public class BarbeiroService {
         return barbeiroOptinal;
     }
 
+    public  Barbeiro  BuscarBarbeiroNome(String nome ){
+        Optional<Barbeiro> barbeiroOptional = barbeiroRepository.findByNome(nome);
+        Barbeiro barbeiro = barbeiroOptional.get();
+
+        if(barbeiroOptional.isEmpty()){
+            throw new BarbeiroException("O Usuario não está cadastrado: ");
+        }
+
+        return barbeiro;
+    }
+
+
     public Barbeiro AtualizarBarbeiro(Barbeiro barbeiro) {
         Optional<Barbeiro> barbeiroOptinal = barbeiroRepository.findByNome(barbeiro.getNome());
 

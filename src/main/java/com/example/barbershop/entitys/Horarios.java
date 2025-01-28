@@ -1,9 +1,10 @@
 package com.example.barbershop.entitys;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.time.LocalTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,6 +20,7 @@ public class Horarios {
 
     @ManyToOne
     @JoinColumn(name = "barbeiro_id", nullable = false)
+    @JsonBackReference
     private Barbeiro barbeiro;
 
     @ManyToOne
@@ -30,7 +32,7 @@ public class Horarios {
 
     private String status = "Disponivel";
 
-   private LocalDate hoje = LocalDate.now(); 
+  
 
   
 

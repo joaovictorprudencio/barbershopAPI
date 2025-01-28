@@ -12,8 +12,24 @@ public class Cliente {
 
     private String nome;
     private String senha;
-    private String numeroCelular;
+    private String telefone;
+    private String email;
 
+    public Cliente(String nome, String telefone) {
+        this.nome = nome;
+        this.telefone = telefone;
+    }
+
+    public Cliente() {
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public long getId() {
         return this.id;
@@ -39,15 +55,11 @@ public class Cliente {
         this.senha = senha;
     }
 
-    public String getNumeroCelular() {
-        return this.numeroCelular;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setNumeroCelular(String numeroCelular) {
-        this.numeroCelular = numeroCelular;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
-
-  
-
-
 }
