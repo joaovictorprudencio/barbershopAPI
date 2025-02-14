@@ -1,5 +1,16 @@
 services:
-  jdk:
-    image: jdk:21.0.5
+  spring-app:
+    image: openjdk:17-jdk-slim
+    container_name: spring-app
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/barbershopDB
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    build: .
     ports:
-      -8080:8080
+      - "8080:8080"
+    depends_on:
+      - mysql-db
+    networks:
+      - public_network
+      - private _network
