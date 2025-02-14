@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/auth")
 public class ClienteController {
-     
+
     @Autowired
     ClienteService clienteService;
 
