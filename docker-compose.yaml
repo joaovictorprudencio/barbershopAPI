@@ -13,4 +13,4 @@ services:
       - mysql-db
     networks:
       - public_network
-      - private _network
+      -
