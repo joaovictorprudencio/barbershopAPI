@@ -27,8 +27,5 @@ COPY --from=build /app/target/barbershop-0.0.1-SNAPSHOT.jar /app/app.jar
 EXPOSE 8080
 
 
-CMD ["java", "-spring.datasource.url=${SPRING_DATASOURCE_URL}", \
-           "-spring.datasource.username=${SPRING_DATASOURCE_USERNAME}", \
-           "-spring.datasource.password=${SPRING_DATASOURCE_PASSWORD}", \
-           "-api.security.token.secret=${DECODE_JWT}", \
-           "-jar", "/app/app.jar"]
+
+CMD ["java", "-jar", "/app/app.jar"]
