@@ -1,6 +1,6 @@
 services:
   spring-app-prod:
-    build: .
+    build: ./build
     container_name: spring-app-prod
     working_dir: /app
     ports:
