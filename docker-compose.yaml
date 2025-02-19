@@ -1,9 +1,12 @@
 services:
-  spring-app:
+  spring-app-prod:
     build: .
-    container_name: spring-app
+    container_name: spring-app-prod
     env_file:
       - .env
+    volumes:
+      - ./.env:/app/.env
+    working_dir: /app
     ports:
       - "8080:8080"
     networks:
