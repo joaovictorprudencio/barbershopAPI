@@ -81,7 +81,7 @@ public class HorarioService {
   private List<Horarios> horariosDoDia = new ArrayList<>();
 
   private void gerarHorarios(Barbeiro barbeiro, LocalDate data, LocalTime inicil, LocalTime fim) {
-    Optional<Barbeiro> barbeiroOptinal = barbeiroRepository.findByNome("joão victor");
+    Optional<Barbeiro> barbeiroOptinal = barbeiroRepository.findByNome("Maikon");
     LocalTime Ohorario = inicil;
     horariosDoDia.clear();
 
