@@ -2,13 +2,13 @@ services:
   spring-app-prod:
     build: .
     container_name: spring-app-prod
-    env_file:
-      - .env
-    volumes:
-      - ./.env:/app/.env
     working_dir: /app
     ports:
       - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
     networks:
       - public_network
 
