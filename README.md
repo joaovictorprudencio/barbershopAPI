@@ -26,7 +26,7 @@ Bem-vindo à documentação da **API de Gestão de Barbearia**. Esta API foi des
 - **Java** 21
 - **Maven** 3.8+
 - **Spring Boot** 3.x
-- **MongoDB** 6.x (para produção)
+- **MySQl**  (para produção)
 - IDE recomendada: IntelliJ IDEA ou Eclipse
 
 ---
@@ -42,14 +42,22 @@ Bem-vindo à documentação da **API de Gestão de Barbearia**. Esta API foi des
   2. Configure o arquivo `application.properties` ou `application.yml`:
 
   
- **Para Conexão com MongoDB**:
+ **Para Conexão com MySQL**:
  ```
- spring.data.mongodb.uri=mongodb+srv://SEU_USUARIO:SUA_SENHA@cluster.mongodb.net/barbearia_prod
- spring.data.mongodb.database=barbearia
+spring.datasource.url=jdbc:mysql://SEU_HOST:SEU_PORTA/NOME_DO_BANCO
+spring.datasource.username=SEU_USUARIO
+spring.datasource.password=SUA_SENHA
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
 ```
 **Para iniciar o projeto**:
  ```
 mvn spring-boot:run
+ ```
+
+**Para iniciar o projeto em produção**:
+ ```
+docker-compose up
  ```
 
 
