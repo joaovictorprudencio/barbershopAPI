@@ -41,7 +41,7 @@ public class HorarioService {
     LocalDate hoje = LocalDate.now();
     LocalTime agora = LocalTime.now();
 
-    Optional<Barbeiro> barbeiroOptional = barbeiroRepository.findByNome("joão victor");
+    Optional<Barbeiro> barbeiroOptional = barbeiroRepository.findByNome(nome);
 
       if (hoje.isAfter(dataDoCorte)) {
           throw new HorarioException("A data " + dataDoCorte + " está inválida");
@@ -67,7 +67,7 @@ public class HorarioService {
 
   }
 
-  @Scheduled(cron = "0 0 0 * * *")
+  @Scheduled(cron = "0 0 0 * * *", zone="America/Sao_Paulo")
   public void gerarHorariosDiarios() {
 
     List<Barbeiro> barbeiros = barbeiroRepository.findAll();
@@ -76,35 +76,40 @@ public class HorarioService {
       gerarHorarios(barbeiro, LocalDate.now(), LocalTime.of(9, 0), LocalTime.of(12, 0));
       gerarHorarios(barbeiro, LocalDate.now(), LocalTime.of(14, 0), LocalTime.of(20, 30));
     }
+
+    limparBanco();
   }
 
   private List<Horarios> horariosDoDia = new ArrayList<>();
 
   private void gerarHorarios(Barbeiro barbeiro, LocalDate data, LocalTime inicil, LocalTime fim) {
-    Optional<Barbeiro> barbeiroOptinal = barbeiroRepository.findByNome("Maikon");
-    LocalTime Ohorario = inicil;
+    Optional<Barbeiro> barbeiroOptinal = barbeiroRepository.findByNome(barbeiro.getNome());
+    LocalTime horarioInicil = inicil;
     horariosDoDia.clear();
 
     if (!barbeiroOptinal.isPresent()) {
       throw new BarbeiroException("O nome de usuário não existe " + barbeiro.getNome());
     }
 
-    while (Ohorario.isBefore(fim)) {
-      boolean horarioExistente = horarioRepository.countByDataAndHorarioAndBarbeiro(data, Ohorario, barbeiro) > 0;
+    while (horarioInicil.isBefore(fim)) {
+      boolean horarioExistente = horarioRepository.countByDataAndHorarioAndBarbeiro(data, horarioInicil, barbeiro) > 0;
 
-      if (horarioExistente) {
+      if (!horarioExistente) {
+
+        Optional<Cliente> clientePadrao = clienteRepository.findById(7L);
+
 
         Horarios novoHorario = new Horarios();
         novoHorario.setBarbeiro(barbeiro);
-        novoHorario.setCliente(null);
+        novoHorario.setCliente(clientePadrao.orElse(null));
         novoHorario.setData(data);
-        novoHorario.setHorario(Ohorario);
+        novoHorario.setHorario(horarioInicil);
         novoHorario.setStatus("Disponível");
 
         horariosDoDia.add(novoHorario);
         horarioRepository.save(novoHorario);
       }
-      Ohorario = Ohorario.plusMinutes(30);
+      horarioInicil = horarioInicil.plusMinutes(30);
     }
 
   }
@@ -126,11 +131,17 @@ public class HorarioService {
 
       List<Horarios> horariosMarcadosHoje = horarioRepository.findByData(hoje);
 
-      if(!horariosDoDia.isEmpty()){
+      if(!horariosMarcadosHoje.isEmpty()){
         throw new HorarioException("não a cortes para hoje: " + hoje);
       }
 
       return horariosMarcadosHoje;
+  }
+
+  private void limparBanco (){
+     LocalDate hoje = LocalDate.now();
+
+     horarioRepository.clearDB(hoje);
   }
 
 }

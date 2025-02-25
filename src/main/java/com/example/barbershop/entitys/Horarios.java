@@ -24,7 +24,7 @@ public class Horarios {
     private Barbeiro barbeiro;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
+    @JoinColumn(name = "cliente_id", nullable = true)
     private Cliente cliente;
 
     private LocalDate data;
