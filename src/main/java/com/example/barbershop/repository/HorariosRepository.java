@@ -29,8 +29,15 @@ public interface HorariosRepository extends JpaRepository<Horarios, Long> {
               @Param("barbeiro") Barbeiro barbeiro
     );
 
-    @Query(value = "SELECT h FROM Horarios h WHERE h.data = :data")
+    @Query("""
+            SELECT h FROM Horarios h
+             WHERE h.data = :data and  h.status = "indisponivel"
+            """)
     List<Horarios> findByData(@Param("data") LocalDate data);
+
+
+
+
 
     @Query("""
             SELECT h FROM Horarios h 
