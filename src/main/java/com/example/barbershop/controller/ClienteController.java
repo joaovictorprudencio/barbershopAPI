@@ -34,8 +34,6 @@ public class ClienteController {
     @PostMapping("/march")
     public ResponseEntity<?> MarcarHorario(@RequestBody HorarioDTO horario) {
 
-        System.out.println("Horário recebido: " + horario.horario());
-
        Horarios NovoHorario = horarioService
                .MarcarHorario(horario.data(), horario.horario(), horario.nome(), horario.BarbeiroNome(), horario.telefone());
        return ResponseEntity.ok(NovoHorario);
