@@ -15,11 +15,7 @@ public class ClienteService {
   ClienteRepository clienteRepository;
 
   public Cliente CriarCliente(Cliente cliente) {
-    Optional<Cliente> ClienteExistente = clienteRepository.findByNome(cliente.getNome());
 
-    if (ClienteExistente.isPresent()) {
-      throw new ClienteException("O nome de usuário já está em uso: " + cliente.getNome());
-    }
     return clienteRepository.save(cliente);
   }
 

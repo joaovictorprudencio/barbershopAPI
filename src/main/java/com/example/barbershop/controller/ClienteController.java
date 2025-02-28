@@ -16,7 +16,6 @@ import com.example.barbershop.service.ClienteService;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/auth")
 public class ClienteController {
 
     @Autowired
@@ -33,9 +32,10 @@ public class ClienteController {
 
 
     @PostMapping("/march")
-    public ResponseEntity<Horarios> MarcarHorario(@RequestBody HorarioDTO horario) {
+    public ResponseEntity<?> MarcarHorario(@RequestBody HorarioDTO horario) {
+
        Horarios NovoHorario = horarioService
-               .MarcarHorario(horario.data(), horario.horario(), horario.nome(), horario.telefone());
+               .MarcarHorario(horario.data(), horario.horario(), horario.nome(), horario.BarbeiroNome(), horario.telefone());
        return ResponseEntity.ok(NovoHorario);
     }
 
