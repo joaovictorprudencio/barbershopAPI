@@ -115,7 +115,7 @@ public class HorarioService {
       throw new BarbeiroException("O nome de usuário não existe " + barbeiro.getNome());
     }
 
-    while (horarioInicil.isBefore(fim)) {
+    while (!horarioInicil.isBefore(fim)) {
       boolean horarioExistente = horarioRepository.countByDataAndHorarioAndBarbeiro(data, horarioInicil, barbeiro) > 0;
 
       if (!horarioExistente) {
