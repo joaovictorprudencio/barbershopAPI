@@ -91,7 +91,7 @@ public class HorarioService {
 
   }
 
-  @Scheduled(cron = "0 0 0 * * *", zone="America/Sao_Paulo")
+  @Scheduled(cron = "0 1 0 * * *", zone="America/Sao_Paulo")
   public void gerarHorariosDiarios() {
 
     List<Barbeiro> barbeiros = barbeiroRepository.findAll();
@@ -115,7 +115,7 @@ public class HorarioService {
       throw new BarbeiroException("O nome de usuário não existe " + barbeiro.getNome());
     }
 
-    while (!horarioInicil.isBefore(fim)) {
+    while (horarioInicil.isBefore(fim.plusMinutes(30))) {
       boolean horarioExistente = horarioRepository.countByDataAndHorarioAndBarbeiro(data, horarioInicil, barbeiro) > 0;
 
       if (!horarioExistente) {
