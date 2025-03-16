@@ -168,4 +168,22 @@ public class HorarioService {
      horarioRepository.clearDB(hoje);
   }
 
+
+  public Horarios DesmarcarHorario(Long HorarioId){
+
+      Optional<Horarios> HorarioOptinal = horarioRepository.findById(HorarioId);
+
+      if(!HorarioOptinal.isPresent()){
+          throw new HorarioException("O Horario não econtrado");
+
+      }
+
+      Horarios horarioDesmarcar = HorarioOptinal.get();
+
+      horarioDesmarcar.setStatus("Disponível");
+
+      return horarioRepository.save(horarioDesmarcar);
+
+  }
+
 }
