@@ -49,7 +49,7 @@ public class BarbeiroController {
        List<Horarios> horarios = horarioService.horariosDeServicoDoDia();
 
         if(horarios.isEmpty()) {
-            throw new HorarioException("Não A horarios para hoje");
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não a horarios para hoje");
         }
 
         return ResponseEntity.ok(horarios);
@@ -64,7 +64,6 @@ public class BarbeiroController {
         if(horario == null ) {
             ResponseEntity.status(HttpStatus.NOT_FOUND).body("Horario" + horarioId +"Não encontrato");
         }
-
 
 
         return ResponseEntity.ok(horario);
