@@ -41,7 +41,8 @@ public class HorarioService {
     LocalDate hoje = LocalDate.now();
     LocalTime agora = LocalTime.now();
 
-    Optional<Barbeiro> barbeiroOptional = barbeiroRepository.findByNome(barbeiroNome);
+    Barbeiro barbeiro = barbeiroRepository.findByNome(barbeiroNome)
+            .orElseThrow(() -> new BarbeiroException("barbeiro não encontrado"));
 
       Optional <Horarios> horarioIndisponivelOptional = horarioRepository.validationData(dataDoCorte,horario,"indisponivel");
 
@@ -77,14 +78,12 @@ public class HorarioService {
      );
 
 
-    Barbeiro barbeiroGet = barbeiroOptional.get();
-
 
     Horarios marcandoHorario = new Horarios();
     marcandoHorario.setCliente(cliente);
     marcandoHorario.setData(dataDoCorte);
     marcandoHorario.setHorario(horario);
-    marcandoHorario.setBarbeiro(barbeiroGet);
+    marcandoHorario.setBarbeiro(barbeiro);
     marcandoHorario.setStatus("indisponivel");
 
     return horarioRepository.save(marcandoHorario);
@@ -166,6 +165,24 @@ public class HorarioService {
      LocalDate hoje = LocalDate.now();
 
      horarioRepository.clearDB(hoje);
+  }
+
+
+  public Horarios DesmarcarHorario(Long HorarioId){
+
+      Optional<Horarios> HorarioOptinal = horarioRepository.findById(HorarioId);
+
+      if(!HorarioOptinal.isPresent()){
+          throw new HorarioException("O Horario não econtrado");
+
+      }
+
+      Horarios horarioDesmarcar = HorarioOptinal.get();
+
+      horarioDesmarcar.setStatus("Disponível");
+
+      return horarioRepository.save(horarioDesmarcar);
+
   }
 
 }

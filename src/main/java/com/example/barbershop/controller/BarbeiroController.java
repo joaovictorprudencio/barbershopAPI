@@ -9,10 +9,10 @@ import com.example.barbershop.service.BarbeiroService;
 import com.example.barbershop.service.ClienteService;
 import com.example.barbershop.service.HorarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -49,9 +49,25 @@ public class BarbeiroController {
        List<Horarios> horarios = horarioService.horariosDeServicoDoDia();
 
         if(horarios.isEmpty()) {
-            throw new HorarioException("Não A horarios para hoje");
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não a horarios para hoje");
         }
 
         return ResponseEntity.ok(horarios);
     };
+
+
+    @PutMapping("/desmarcar/{horarioId}")
+    public ResponseEntity<Horarios> desmarcarHorario(@PathVariable Long horarioId){
+
+        Horarios horario = horarioService.DesmarcarHorario(horarioId);
+
+        if(horario == null ) {
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Horario" + horarioId +"Não encontrato");
+        }
+
+
+        return ResponseEntity.ok(horario);
+
+
+    }
 }
