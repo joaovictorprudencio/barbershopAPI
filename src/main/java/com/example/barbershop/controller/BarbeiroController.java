@@ -70,4 +70,10 @@ public class BarbeiroController {
 
 
     }
+
+    @GetMapping("/ping")
+    public String ping(){
+        return "API FOI CHAMADA";
+    };
+
 }
