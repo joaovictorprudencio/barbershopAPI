@@ -90,7 +90,7 @@ public class HorarioService {
 
   }
 
-  @Scheduled(cron = "0 0 9 * * *", zone="America/Sao_Paulo")
+  @Scheduled(cron = "0 0 11 * * *", zone="America/Sao_Paulo")
   public void gerarHorariosDiarios() {
 
     List<Barbeiro> barbeiros = barbeiroRepository.findAll();
